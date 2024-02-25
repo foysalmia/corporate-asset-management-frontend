@@ -1,10 +1,10 @@
+import Home from "./pages/Home"
 
 function App() {
-
   return (
-    <>
-      This is home
-    </>
+    <div>
+      <Home/>
+    </div>
   )
 }
 
