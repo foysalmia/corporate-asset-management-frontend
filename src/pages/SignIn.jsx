@@ -15,14 +15,14 @@ const SignIn = () => {
     }
 
     return (
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-3">
             <div className='relative'>
                 <img className='h-screen' src={SignImg} alt="sing in image" />
                 <div className='absolute left-12 top-16 text-center'>
                     <h1 className='text-white font-semibold text-4xl text center'>Corporate Asset<br/>Management</h1>
                 </div>
             </div>
-            <div className='col-span-2 w-1/2'>
+            <div className='col-span-2 w-1/2 ml-5'>
                 <div className='mt-16 '>
                     <h1 className='font-bold text-4xl'>Sign In</h1>
                     <p className='mt-5 text-xl text-gray-900'>Enter details to login to your account</p>
