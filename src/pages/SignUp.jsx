@@ -15,6 +15,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
@@ -97,7 +98,7 @@ const SignUp = () => {
                             </AlertDialog>
 
                     }
-                    <p className='mt-5 text-center text-xs text-gray-900'>Already have an account ? <span className='text-[#6558F5]'>Sign In</span></p>
+                    <p className='mt-5 text-center text-xs text-gray-900'>Already have an account ? <Link to="/login" className='text-[#6558F5]'>Sign In</Link></p>
                 </div>
 
             </div>

@@ -84,3 +84,7 @@
   font-family: 'Poppins';
   box-sizing: border-box;
 }
+
+a:active{
+  background-color: '#372DA6';
+}

@@ -4,6 +4,7 @@ import SignImg from "../assets/signin.png";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
     const [email,setEmail] = useState('');
@@ -45,7 +46,7 @@ const SignIn = () => {
                         />
                     </div>
                     <Button className="mt-5 w-full" onClick={handleLogin}> Sign In</Button>
-                    <h1 className='text-center text-xs mt-10'>Don’t have an account ? Sign Up</h1>
+                    <h1 className='text-center text-xs mt-10'>Don’t have an account ? <Link className='text-[#6558F5]' to="/register">Sign Up</Link> </h1>
                 </div>
                 <h1
                     className="text-center text-xs text-gray-800 flex justify-center items-center mt-[100px]">All Right Reserved to
