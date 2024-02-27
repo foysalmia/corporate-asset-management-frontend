@@ -8,7 +8,7 @@ import {  NavLink, Outlet } from "react-router-dom";
 const CompanyProfile = () => {
     return (
         <div className='grid grid-cols-5 gap-2'>
-            <div className='bg-[#6558F5] h-screen py-10 px-10'>
+            <div className='bg-[#6558F5] h-full py-5 px-10'>
                 <h1 className='text-white font-bold text-3xl'>Asset Pulse</h1>
                 <div className='mt-5'>
                     <NavLink 
@@ -44,14 +44,14 @@ const CompanyProfile = () => {
                     </NavLink>
                 </div>
                 <div className='mt-2'>
-                    <a className='text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center' ><RiAdminLine size={25} className='mr-2' />Admin Panel</a>
+                    <a className='text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center' ><RiAdminLine size={25} className='mr-2' />Admin</a>
                 </div>
                 <div className='mt-2'>
                     <a className='text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center' ><PiSignOutBold size={25} className='mr-2' />Sign Out</a>
                 </div>
 
             </div>
-            <div>
+            <div className="col-span-4">
                 <Outlet/>
             </div>
             
