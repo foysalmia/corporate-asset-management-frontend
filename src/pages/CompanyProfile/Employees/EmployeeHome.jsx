@@ -19,7 +19,7 @@ const EmployeeHome = () => {
             </div>
             <div className="mt-5">
                 <Table className="border border-gray-100">
-                    <TableCaption className="mt-16 mb-3">A list of your organization's assets.</TableCaption>
+                    <TableCaption className="mt-16 mb-3">A list of your organization's employees.</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="text-[#6558F5] font-semibold text-sm w-[100px]">ID</TableHead>
