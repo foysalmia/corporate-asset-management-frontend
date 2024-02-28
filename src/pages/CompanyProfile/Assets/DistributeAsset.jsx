@@ -14,7 +14,7 @@ const DistributeAsset = () => {
     return (
         <div className="mt-10  w-1/2 mx-auto">
             <h1 className="text-center font-semibold text-3xl">Distribute Assets in Employee</h1>
-            <p className="text-xs my-2 text-center text-gray-500">Enter the details of your asset which you want to include in your organization.</p>
+            <p className="text-xs my-2 text-center text-gray-500">Enter the credentials to distribute an asset to a currently working employee of your organization.</p>
             <form>
                 <div className='mt-5'>
                     <Select >

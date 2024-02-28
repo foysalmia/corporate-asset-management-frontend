@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/select";
 import DatePicker from "@/components/DatePicker/DatePicker";
 
-
 const AddAsset = () => {
     return (
         <div className="mt-10  w-1/2 mx-auto">

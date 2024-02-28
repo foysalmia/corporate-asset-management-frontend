@@ -16,18 +16,26 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { useState } from "react";
 
 const AssetTable = () => {
+    const [sort,setSort] = useState('');
+    const [search,setSearch] = useState('');
+    
+    const handleSearch = () =>{
+        console.log(search,sort);
+    }
+
     return (
         <div className="mt-16">
             <div className="flex justify-between items-start">
                 <h1 className="font-semibold text-3xl">Assets</h1>
                 <div className="flex items-center">
                     <div className="flex w-full max-w-lg items-center space-x-2 mr-3">
-                        <Input type="email" placeholder="Search assets here" />
-                        <Button className="bg-[#6558F5] hover:bg-[#3a338f]" type="submit">Search</Button>
+                        <Input type="text" onChange={(e)=>setSearch(e.target.value)} placeholder="Search assets here" />
+                        <Button className="bg-[#6558F5] hover:bg-[#3a338f]" onClick={handleSearch} >Search</Button>
                     </div>
-                    <Select>
+                    <Select onValueChange={(e)=>setSort(e)}>
                         <SelectTrigger className="w-[180px] bg-[#6558F5] text-white">
                             <SelectValue placeholder="Sort By" />
                         </SelectTrigger>
