@@ -13,6 +13,9 @@ import CompanyProfile from './pages/CompanyProfile/CompanyProfile';
 import Dashboard from './pages/CompanyProfile/Dashboard/Dashboard';
 import Assets from './pages/CompanyProfile/Assets/Assets';
 import Employees from './pages/CompanyProfile/Employees/Employees';
+import AddAsset from './pages/CompanyProfile/Assets/AddAsset';
+import AssetHome from './pages/CompanyProfile/Assets/AssetHome';
+import DistributeAsset from './pages/CompanyProfile/Assets/DistributeAsset';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +40,21 @@ const router = createBrowserRouter([
       },
       {
         path:"assets",
-        element:<Assets/>
+        element:<Assets/>,
+        children:[
+          {
+            path: "",
+            element: <AssetHome/>
+          },
+          {
+            path:"add-asset",
+            element: <AddAsset/>
+          },
+          {
+            path:"distribute",
+            element: <DistributeAsset/>
+          },
+        ]
       },
       {
         path:"employees",
