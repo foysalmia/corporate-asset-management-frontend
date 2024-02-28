@@ -9,13 +9,19 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { useState } from "react";
 
 const EmployeeHome = () => {
+    const [search,setSearch] = useState('');
+    const handleSearch = () =>{
+        console.log(search);
+    }
+
     return (
         <div className="mt-16">
             <div className="flex w-full max-w-lg items-center space-x-2 mx-auto">
-                <Input type="email" placeholder="Search employee here" />
-                <Button className="bg-[#6558F5] hover:bg-[#3a338f]">Search</Button>
+                <Input onChange={(e)=>setSearch(e.target.value)} type="email" placeholder="Search employee here" />
+                <Button onClick={handleSearch} className="bg-[#6558F5] hover:bg-[#3a338f]">Search</Button>
             </div>
             <div className="mt-5">
                 <Table className="border border-gray-100">
