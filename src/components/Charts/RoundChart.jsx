@@ -11,13 +11,13 @@ const RoundChart = () => {
                 datasets: [
                     {
                         label: "Distributed",
-                        data: [53,50,130,78,15,30],
+                        data: [53,50,130,78,80,30],
                         backgroundColor: [
                             "rgba(101, 88, 245, 1)",
                             "rgba(166, 130, 255, 1)",
                             "rgba(85, 193, 255, 1)",
-                            "rgba(247, 195, 37, 1)",
                             "rgba(16, 46, 74, 1)",
+                            "rgba(247, 195, 37, 1)",
                             "rgba(0, 0, 0, 1)"
                         ]
                     }

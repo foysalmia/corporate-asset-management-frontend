@@ -33,7 +33,7 @@ const SignUp = () => {
             <div className='mx-auto w-2/3'>
                 <h1 className='font-semibold text-3xl pt-10'>Get Started Now</h1>
                 <p className='text-gray-800 text-xs mt-3'>Enter your credentials to access your company account</p>
-                <div className=''> 
+                <div> 
                     <div className='mt-10'>
                         <Label htmlFor="name">Company Name</Label>
                         <Input
