@@ -16,6 +16,8 @@ import Employees from './pages/CompanyProfile/Employees/Employees';
 import AddAsset from './pages/CompanyProfile/Assets/AddAsset';
 import AssetHome from './pages/CompanyProfile/Assets/AssetHome';
 import DistributeAsset from './pages/CompanyProfile/Assets/DistributeAsset';
+import EmployeeHome from './pages/CompanyProfile/Employees/EmployeeHome';
+import AddEmployee from './pages/CompanyProfile/Employees/AddEmployee';
 
 const router = createBrowserRouter([
   {
@@ -58,7 +60,17 @@ const router = createBrowserRouter([
       },
       {
         path:"employees",
-        element:<Employees/>
+        element:<Employees/>,
+        children:[
+          {
+            path: "",
+            element: <EmployeeHome />
+          },
+          {
+            path: "add-employee",
+            element: <AddEmployee />
+          },
+        ]
       },
     ]
   },
