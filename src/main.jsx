@@ -15,9 +15,11 @@ import Assets from './pages/CompanyProfile/Assets/Assets';
 import Employees from './pages/CompanyProfile/Employees/Employees';
 import AddAsset from './pages/CompanyProfile/Assets/AddAsset';
 import AssetHome from './pages/CompanyProfile/Assets/AssetHome';
-import DistributeAsset from './pages/CompanyProfile/Assets/DistributeAsset';
+import DistributeAsset from './pages/CompanyProfile/Distribute/DistributeAsset';
 import EmployeeHome from './pages/CompanyProfile/Employees/EmployeeHome';
 import AddEmployee from './pages/CompanyProfile/Employees/AddEmployee';
+import Distribute from './pages/CompanyProfile/Distribute/Distribute';
+import DistributeHome from './pages/CompanyProfile/Distribute/DistributeHome';
 
 const router = createBrowserRouter([
   {
@@ -52,10 +54,6 @@ const router = createBrowserRouter([
             path:"add-asset",
             element: <AddAsset/>
           },
-          {
-            path:"distribute",
-            element: <DistributeAsset/>
-          },
         ]
       },
       {
@@ -69,6 +67,20 @@ const router = createBrowserRouter([
           {
             path: "add-employee",
             element: <AddEmployee />
+          },
+        ]
+      },
+      {
+        path:"distribute",
+        element: <Distribute/>,
+        children:[
+          {
+            path: "",
+            element: <DistributeHome />
+          },
+          {
+            path: "distribute-asset",
+            element: <DistributeAsset />
           },
         ]
       },

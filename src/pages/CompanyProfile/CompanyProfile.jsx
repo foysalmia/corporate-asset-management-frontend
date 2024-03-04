@@ -4,6 +4,7 @@ import { GoPeople } from "react-icons/go";
 import { RiAdminLine } from "react-icons/ri";
 import { PiSignOutBold } from "react-icons/pi";
 import {  NavLink, Outlet } from "react-router-dom";
+import { CgPushChevronRightR } from "react-icons/cg";
 
 const CompanyProfile = () => {
     return (
@@ -42,6 +43,17 @@ const CompanyProfile = () => {
                                     "text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center"}
                         >
                             <GoPeople size={25} className='mr-2' />Employees
+                        </NavLink>
+                    </div>
+                    <div className='mt-2'>
+                        <NavLink
+                            to='/profile/distribute'
+                            className={
+                                ({ isActive }) => isActive ?
+                                    "bg-[#372DA6] text-white font-semibold text-xl px-3 py-2 rounded-md flex items-center" :
+                                    "text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center"}
+                        >
+                            <CgPushChevronRightR size={25} className='mr-2' />Distribute
                         </NavLink>
                     </div>
                     <div className='mt-2'>
