@@ -51,7 +51,7 @@ const DistributeHome = () => {
                             <TableCell>15-2-2024</TableCell>
                             <TableCell>15-2-2024</TableCell>
                             <TableCell className="text-green-400">Free</TableCell>
-                            <TableCell className="text-green-400">Take back</TableCell>
+                            <TableCell className="text-red-400">Take back</TableCell>
                         </TableRow>                        
                         <TableRow>
                             <TableCell className="font-medium">Logitech Keyboard</TableCell>
