@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import SignInImg from "../assets/register.png"
 import { Input } from "@/components/ui/input"
@@ -15,7 +16,8 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 const SignUp = () => {
@@ -25,8 +27,31 @@ const SignUp = () => {
     const [password,setPassword] = useState('');
     const [agree,setAgree] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleSignIn = () =>{
-        console.log(name,email,description,password,agree);
+        const formData = {name,email,description,password};
+        fetch("http://127.0.0.1:8000/auth/users/",{
+            method : 'POST',
+            headers : {
+                'Content-Type' :  'application/json',
+            },
+            body : JSON.stringify(formData),
+        })
+        .then(res => {
+            if (res.status === 400){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Email Already Exists..!\nPlease Login.',
+                    icon: 'error',
+                })
+            }else{
+                return res.json()
+            }
+            console.log(res.status);
+        })
+        .then(data => navigate('/login'))
+        .catch(error => console.log(error,'error found'))
     }
     return (
         <div className="grid grid-cols-2 gap-2">
