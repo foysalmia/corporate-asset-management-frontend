@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button';
 import { Link ,useNavigate,useLocation } from 'react-router-dom';
 import { AuthContext } from '@/components/Context/ContextApi';
+import { jwtCreate, userUrl } from '@/Utilies/Url';
 
 const SignIn = () => {
     const [email,setEmail] = useState('');
@@ -18,7 +19,7 @@ const SignIn = () => {
 
     const handleLogin = () =>{
         const loginData = {email,password};
-        fetch("http://127.0.0.1:8000/auth/jwt/create",{
+        fetch(jwtCreate,{
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ const SignIn = () => {
         .then(res => res.json())
         .then(data => {
             localStorage.setItem('accessToken',data.access);
-            fetch("http://127.0.0.1:8000/auth/users/me/", {
+            fetch(userUrl, {
                 method: 'GET',
                 headers: {
                     'Authorization': `JWT ${data.access}`,
