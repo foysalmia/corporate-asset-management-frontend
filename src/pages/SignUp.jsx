@@ -29,7 +29,7 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-    const handleSignIn = () =>{
+    const handleSignUp = () =>{
         const formData = {name,email,description,password};
         fetch("http://127.0.0.1:8000/auth/users/",{
             method : 'POST',
@@ -48,7 +48,6 @@ const SignUp = () => {
             }else{
                 return res.json()
             }
-            console.log(res.status);
         })
         .then(data => navigate('/login'))
         .catch(error => console.log(error,'error found'))
@@ -105,7 +104,7 @@ const SignUp = () => {
                         </label>
                     </div>
                     {
-                        agree ? <Button className="w-full mt-5 bg-[#6558F5] hover:bg-[#372DA6]" onClick={handleSignIn}>Get Started</Button> :
+                        agree ? <Button className="w-full mt-5 bg-[#6558F5] hover:bg-[#372DA6]" onClick={handleSignUp}>Get Started</Button> :
                             <AlertDialog>
                                 <AlertDialogTrigger 
                                     className='w-full mt-5 bg-[#6558F5] hover:bg-[#372DA6] py-2 rounded-md text-white'>Get Started</AlertDialogTrigger>

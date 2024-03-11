@@ -20,6 +20,8 @@ import EmployeeHome from './pages/CompanyProfile/Employees/EmployeeHome';
 import AddEmployee from './pages/CompanyProfile/Employees/AddEmployee';
 import Distribute from './pages/CompanyProfile/Distribute/Distribute';
 import DistributeHome from './pages/CompanyProfile/Distribute/DistributeHome';
+import ContextApi from './components/Context/ContextApi';
+import Protected from './components/ProtectedRoute/Protected';
 
 const router = createBrowserRouter([
   {
@@ -36,51 +38,51 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <CompanyProfile/>,
+    element: <Protected><CompanyProfile /></Protected>,
     children:[
       {
         path:"dashboard",
-        element:<Dashboard/>
+        element: <Protected><Dashboard /></Protected>,
       },
       {
         path:"assets",
-        element:<Assets/>,
+        element: <Protected><Assets /></Protected>,
         children:[
           {
             path: "",
-            element: <AssetHome/>
+            element: <Protected><AssetHome /></Protected>
           },
           {
             path:"add-asset",
-            element: <AddAsset/>
+            element: <Protected><AddAsset /></Protected>
           },
         ]
       },
       {
         path:"employees",
-        element:<Employees/>,
+        element: <Protected><Employees /></Protected>,
         children:[
           {
             path: "",
-            element: <EmployeeHome />
+            element: <Protected><EmployeeHome /></Protected>
           },
           {
             path: "add-employee",
-            element: <AddEmployee />
+            element: <Protected><AddEmployee /></Protected>
           },
         ]
       },
       {
         path:"distribute",
-        element: <Distribute/>,
+        element: <Protected><Distribute /></Protected>,
         children:[
           {
             path: "",
-            element: <DistributeHome />
+            element: <Protected><DistributeHome /></Protected>
           },
           {
             path: "distribute-asset",
-            element: <DistributeAsset />
+            element: <Protected><DistributeAsset /></Protected>
           },
         ]
       },
@@ -90,6 +92,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ContextApi>
+      <RouterProvider router={router} />
+    </ContextApi>
   </React.StrictMode>,
 )

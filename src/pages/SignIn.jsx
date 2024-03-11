@@ -1,17 +1,47 @@
-import { useState } from 'react';
+import { useState ,useContext} from 'react';
 import { AiOutlineCopyright } from "react-icons/ai";
 import SignImg from "../assets/signin.png";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate,useLocation } from 'react-router-dom';
+import { AuthContext } from '@/components/Context/ContextApi';
 
 const SignIn = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const {setUser} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/' ;
 
     const handleLogin = () =>{
-        console.log(email,password);
+        const loginData = {email,password};
+        fetch("http://127.0.0.1:8000/auth/jwt/create",{
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData),
+        })
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem('accessToken',data.access);
+            fetch("http://127.0.0.1:8000/auth/users/me/", {
+                method: 'GET',
+                headers: {
+                    'Authorization': `JWT ${data.access}`,
+                    'Content-Type': 'application/json',
+                },
+
+            })
+            .then(res => res.json())
+            .then(data => {
+                setUser(data);
+                navigate(from);
+            })
+        })
 
     }
 
