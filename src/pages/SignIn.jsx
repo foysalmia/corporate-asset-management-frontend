@@ -1,17 +1,18 @@
-import { useState ,useContext} from 'react';
+import { useState} from 'react';
 import { AiOutlineCopyright } from "react-icons/ai";
 import SignImg from "../assets/signin.png";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button';
 import { Link ,useNavigate,useLocation } from 'react-router-dom';
-import { AuthContext } from '@/components/Context/ContextApi';
 import { jwtCreate, userUrl } from '@/Utilies/Url';
+import { getAuth } from '@/components/Context/GetContext';
+import Swal from 'sweetalert2'
 
 const SignIn = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const {setUser} = useContext(AuthContext);
+    const { user,setUser,loading,setLoading } = getAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -35,12 +36,20 @@ const SignIn = () => {
                     'Authorization': `JWT ${data.access}`,
                     'Content-Type': 'application/json',
                 },
-
             })
             .then(res => res.json())
             .then(data => {
                 setUser(data);
-                navigate(from);
+                setLoading(false);
+
+                if (!loading){
+                    user.email ? navigate(from)
+                        : Swal.fire({
+                            title: 'Error!',
+                            text: 'Please Login with correct credentials',
+                            icon: 'error',
+                        });
+                }
             })
         })
 
