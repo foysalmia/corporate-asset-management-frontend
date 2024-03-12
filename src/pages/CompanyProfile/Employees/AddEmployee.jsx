@@ -2,19 +2,43 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import DatePicker from "@/components/DatePicker/DatePicker";
 import { useState } from "react";
+import { getAuth } from "@/components/Context/GetContext";
+import { employeeUrl } from "@/Utilies/Url";
+import Swal from 'sweetalert2'
+import {useNavigate} from 'react-router-dom';
 
 const AddEmployee = () => {
     const [name,setName] = useState('');
     const [designation,setDesignation] = useState('');
     const [description,setDescription] = useState('');
     const [salary,setSalary] = useState('');
-    const [joinDate,setJoinDate] = useState();
-
+    const [join_date,setJoinDate] = useState();
+    const accessToken = localStorage.getItem('accessToken');
+    const {user} = getAuth();
+    const navigate = useNavigate();
     const handleEmployeeAdd = (e) =>{
         e.preventDefault();
-        console.log(name,designation,description,salary,joinDate);
+        const formData = {name,designation,description,salary,join_date,company:user.id};
+        console.log(formData);
+        fetch(employeeUrl,{
+            method:'POST',
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(res => {
+            if(res.status === 201){
+                Swal.fire({
+                    title: 'Success!',
+                    text: `${name} added as an employee in your organization`,
+                    icon: 'success',
+                });
+                navigate("/profile/employees");
+            }
+        })
     }
 
     return (
@@ -50,7 +74,7 @@ const AddEmployee = () => {
                     />
                 </div>
                 <div className="mt-2 flex justify-between items-center">
-                    <DatePicker text="Joining Date" date={joinDate} setDate={setJoinDate} />
+                    <input onChange={(e)=>setJoinDate(e.target.value)} className="p-1 w-2/3 border border-1 rounded-md" type="date"/>
                     <Input
                         type="number"
                         min={0}
