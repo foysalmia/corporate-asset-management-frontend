@@ -4,8 +4,6 @@ import { Doughnut } from 'react-chartjs-2';
 
 const RoundChart = ({name,count}) => {
 
-    console.log(name,count);
-
     return (
         <div className='col-span-2 bg-white border border-gray-100 drop-shadow-sm rounded-lg px-5 py-2'>
             <h1 className="font-semibold">Assets Category:</h1>

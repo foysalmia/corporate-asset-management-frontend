@@ -1,21 +1,40 @@
+import { employeeUrl } from "@/Utilies/Url";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
     Table,
     TableBody,
     TableCaption,
-    TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import EmployeeRow from "./EmployeeRow";
 
 const EmployeeHome = () => {
     const [search,setSearch] = useState('');
+    const [employees,setEmployees] = useState([]);
+    const accessToken = localStorage.getItem('accessToken');
     const handleSearch = () =>{
-        console.log(search);
+        if(search){
+            const sorted = employees.filter(employee => employee.name.toLowerCase().includes(search.toLocaleLowerCase()));
+            setEmployees(sorted);
+        }
     }
+
+    useEffect(()=>{
+        fetch(employeeUrl, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(res => res.json())
+            .then(data => setEmployees(data))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[search]);
 
     return (
         <div className="mt-16">
@@ -36,27 +55,9 @@ const EmployeeHome = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">01</TableCell>
-                            <TableCell>Amit Sarkar</TableCell>
-                            <TableCell>Sr Python Developer</TableCell>
-                            <TableCell>15-2-2024</TableCell>
-                            <TableCell className="text-right">$ 50,000</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className="font-medium">02</TableCell>
-                            <TableCell>Ark Emon</TableCell>
-                            <TableCell>Sr Software Engineer</TableCell>
-                            <TableCell>15-2-2024</TableCell>
-                            <TableCell className="text-right">$ 80,000</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className="font-medium">03</TableCell>
-                            <TableCell>Foysal Ahmed</TableCell>
-                            <TableCell>Jr Python Developer</TableCell>
-                            <TableCell>15-2-2024</TableCell>
-                            <TableCell className="text-right">$ 1,000</TableCell>
-                        </TableRow>
+                    {
+                        employees.map(employee => <EmployeeRow employee={employee} key={employee.id}/>)
+                    }
                     </TableBody>
                 </Table>
 
