@@ -22,6 +22,7 @@ import Distribute from './pages/CompanyProfile/Distribute/Distribute';
 import DistributeHome from './pages/CompanyProfile/Distribute/DistributeHome';
 import ContextApi from './components/Context/ContextApi';
 import Protected from './components/ProtectedRoute/Protected';
+import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
           {
             path:"add-asset",
             element: <Protected><AddAsset /></Protected>
+          },
+          {
+            path:":assetId",
+            element: <Protected><AssetDetail/></Protected>
           },
         ]
       },

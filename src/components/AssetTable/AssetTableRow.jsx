@@ -13,7 +13,9 @@ const AssetTableRow = ({asset}) => {
             <TableCell>${asset.price}</TableCell>
             <TableCell>{asset.buy_date}</TableCell>
             <TableCell>{asset.warranty}</TableCell>
-            <TableCell className="text-red-400"> <Link className="bg-gray-100 py-2 px-3 rounded-md">view details</Link> </TableCell>
+            <TableCell className="text-red-400"> 
+                <Link to={`/profile/assets/${asset.id}`} className="bg-gray-100 py-2 px-3 rounded-md">view details</Link>
+            </TableCell>
         </TableRow>
     );
 };
