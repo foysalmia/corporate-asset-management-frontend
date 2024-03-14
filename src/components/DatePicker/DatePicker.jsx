@@ -28,7 +28,7 @@ const DatePicker = ({text,date,setDate}) => {
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     mode="single"
-                    selected={format(date, "P")}
+                    selected={date}
                     onSelect={setDate}
                     initialFocus
                 />

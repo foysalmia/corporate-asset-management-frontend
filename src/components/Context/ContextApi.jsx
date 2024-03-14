@@ -9,6 +9,9 @@ const ContextApi = ({children}) => {
     const accessToken = localStorage.getItem("accessToken");
 
     useEffect(()=>{
+        if(!accessToken){
+            setLoading(false);
+        }
         if(accessToken){
             fetch(userUrl,{
                 method : 'GET',

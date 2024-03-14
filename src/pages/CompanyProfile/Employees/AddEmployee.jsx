@@ -20,7 +20,6 @@ const AddEmployee = () => {
     const handleEmployeeAdd = (e) =>{
         e.preventDefault();
         const formData = {name,designation,description,salary,join_date,company:user.id};
-        console.log(formData);
         fetch(employeeUrl,{
             method:'POST',
             headers: {

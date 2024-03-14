@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { assetUrl } from "@/Utilies/Url";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,20 +13,35 @@ import {
     Table,
     TableBody,
     TableCaption,
-    TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AssetTableRow from "./AssetTableRow";
 
 const AssetTable = () => {
     const [sort,setSort] = useState('');
     const [search,setSearch] = useState('');
+    const [assets,setAssets] = useState([]);
+    const accessToken = localStorage.getItem("accessToken");
     
     const handleSearch = () =>{
         console.log(search,sort);
-    }
+    };
+
+    useEffect(()=>{
+        fetch(assetUrl,{
+            method:'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(res => res.json())
+        .then(data =>setAssets(data))
+        
+    },[])
 
     return (
         <div className="mt-16">
@@ -53,29 +70,17 @@ const AssetTable = () => {
                         <TableRow>
                             <TableHead className="text-[#6558F5] font-semibold text-sm w-[100px]">ID</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Name</TableHead>
+                            <TableHead className="text-[#6558F5] font-semibold text-sm ">Category</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Price</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Buy Date</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Warrenty Date</TableHead>
-                            <TableHead className="text-[#6558F5] font-semibold text-sm ">Status</TableHead>
+                            <TableHead className="text-[#6558F5] font-semibold text-sm ">View Detail</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">01</TableCell>
-                            <TableCell>Samsung Monitor</TableCell>
-                            <TableCell>$ 1500</TableCell>
-                            <TableCell>15-2-2024</TableCell>
-                            <TableCell>25-2-2025</TableCell>
-                            <TableCell className="text-red-400 font-semibold">Distributed</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className="font-medium">02</TableCell>
-                            <TableCell>Samsung Monitor</TableCell>
-                            <TableCell>$ 1500</TableCell>
-                            <TableCell>15-2-2024</TableCell>
-                            <TableCell>25-2-2025</TableCell>
-                            <TableCell className="text-green-500 font-semibold">Free</TableCell>
-                        </TableRow>
+                        {
+                            assets.map(asset => <AssetTableRow asset={asset} key={asset.id} />)
+                        }
                     </TableBody>
                 </Table>
 
