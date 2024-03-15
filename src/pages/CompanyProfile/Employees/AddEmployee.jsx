@@ -73,7 +73,13 @@ const AddEmployee = () => {
                     />
                 </div>
                 <div className="mt-2 flex justify-between items-center">
-                    <input onChange={(e)=>setJoinDate(e.target.value)} className="p-1 w-2/3 border border-1 rounded-md" type="date"/>
+                    <input 
+                        placeholder="Employee Joining Date" 
+                        onChange={(e)=>setJoinDate(e.target.value)} 
+                        className="p-1 w-2/3 border border-1 rounded-md" 
+                        onFocus={(e) => (e.target.type = "date")} 
+                        onBlur={(e) => (e.target.type = "text")}
+                        />
                     <Input
                         type="number"
                         min={0}

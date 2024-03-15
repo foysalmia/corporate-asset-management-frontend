@@ -10,7 +10,10 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import DatePicker from "@/components/DatePicker/DatePicker";
+import { getAuth } from '@/components/Context/GetContext';
+import { assetUrl } from '@/Utilies/Url';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AddAsset = () => {
     const [name,setName] = useState('');
@@ -19,14 +22,29 @@ const AddAsset = () => {
     const [price,setPrice] = useState(0);
     const [buyDate,setBuyDate] = useState();
     const [warrentyDate,setWarrentyDate] = useState();
+    const {user} = getAuth();
+    const accessToken = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
    
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(name, description, category, price);
-        console.log(buyDate);
-        console.log(warrentyDate);
-        
+        const formData = { name, description, price, buy_date: buyDate, warranty:warrentyDate,category,company:user.id};
+        fetch(assetUrl,{
+            method:'POST',
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        }).then(res =>{
+            if(res.status == 201){
+                Swal.fire(`${name} is added successfully in your organization.`,"","success");
+                navigate("/profile/assets");
+            }else{
+                Swal.fire("Did not added !!","","error");
+            }
+        })
     }
 
     return (
@@ -58,9 +76,12 @@ const AddAsset = () => {
                             <SelectValue placeholder="Select Category" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="dark">Dark</SelectItem>
-                            <SelectItem value="system">System</SelectItem>
+                            <SelectItem value="1">Monitor</SelectItem>
+                            <SelectItem value="2">Laptop</SelectItem>
+                            <SelectItem value="3">Keyboard</SelectItem>
+                            <SelectItem value="4">Mouse</SelectItem>
+                            <SelectItem value="5">Printer</SelectItem>
+                            <SelectItem value="6">Mobile</SelectItem>
                         </SelectContent>
                     </Select>
                     <Input
@@ -73,8 +94,20 @@ const AddAsset = () => {
                     />
                 </div>
                 <div className="mt-2 flex justify-between items-center">
-                    <DatePicker text="Buying Date" date={buyDate} setDate={setBuyDate}/>
-                    <DatePicker text="Warrenty Date" date={warrentyDate} setDate={setWarrentyDate}/>
+                    <input
+                        placeholder="Enter Buy Date"
+                        onChange={(e) => setBuyDate(e.target.value)}
+                        className="p-2 w-1/2 border border-1 rounded-md"
+                        onFocus={(e) => (e.target.type = "date")}
+                        onBlur={(e) => (e.target.type = "text")}
+                    />
+                    <input
+                        placeholder="Enter Warrenty Date"
+                        onChange={(e) => setWarrentyDate(e.target.value)}
+                        className="p-2 w-1/2 border border-1 rounded-md ml-3"
+                        onFocus={(e) => (e.target.type = "date")}
+                        onBlur={(e) => (e.target.type = "text")}
+                    />
                 </div>
                 <Button className="mt-2 w-full bg-[#6558F5] hover:bg-[#372DA6] text-white" type="submit">Add Asset</Button>
             </form>

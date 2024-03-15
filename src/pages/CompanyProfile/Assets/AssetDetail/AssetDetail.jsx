@@ -23,13 +23,12 @@ const AssetDetail = () => {
         if(date && type == BUY){
             const _date = date.split("-").map(date => parseInt(date));
             const result = formatDistanceToNow(new Date(_date[0], _date[1], _date[2])); 
-            return `About ${result} old`;
+            return `${result} old`;
         }else if(date && type == WARRENTY){
             const _date = date.split("-").map(date => parseInt(date));
             const hasWarrenty = isFuture(new Date(_date[0], _date[1], _date[2]));
             if(!hasWarrenty) return "No Warrenty";
             else{
-                const _date = date.split("-").map(date => parseInt(date));
                 const result = formatDistanceToNow(new Date(_date[0], _date[1], _date[2]));
                 return `${result} Warrenty`
             }
@@ -73,7 +72,8 @@ const AssetDetail = () => {
                 <h1 className="my-2 font-semibold text-xl text-gray-600">Category: {asset.category?.name}</h1>
                 <div className="flex justify-center items-center">
                     <AssetDelete assetId={asset.id} />
-                    <Link className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md"><FaRegEdit />Edit</Link>
+                    <Link className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md">
+                        <FaRegEdit />Edit</Link>
                 </div>
            </div>
 
