@@ -27,7 +27,6 @@ const AssetTable = () => {
     const accessToken = localStorage.getItem("accessToken");
     
     const handleSearch = () =>{
-        console.log(search,sort);
         if(search){
             const result = assets.filter(asset => asset.name.toLowerCase().includes(search.toLocaleLowerCase()));
             setAssets(result);
