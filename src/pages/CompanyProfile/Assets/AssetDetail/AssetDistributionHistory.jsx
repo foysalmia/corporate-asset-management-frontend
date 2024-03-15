@@ -20,9 +20,9 @@ const AssetDistributionHistory = ({assetId}) => {
     return (
         <div className="mt-5">
             <h1 className="font-semibold">Distribution History:</h1>
-            <div className="mt-3">
+            <div className="mt-3 mb-5 pb-5">
                 {
-                    history ? history.map(data => <AssetDistHistRow data={data} key={data.id} />)
+                    history.length ? history.map(data => <AssetDistHistRow data={data} key={data.id} />)
                     : "Asset does not used by any employee yet."
                 }
             </div>
