@@ -22,7 +22,7 @@ import Distribute from './pages/CompanyProfile/Distribute/Distribute';
 import DistributeHome from './pages/CompanyProfile/Distribute/DistributeHome';
 import ContextApi from './components/Context/ContextApi';
 import Protected from './components/ProtectedRoute/Protected';
-import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail';
+import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail/AssetDetail';
 
 const router = createBrowserRouter([
   {

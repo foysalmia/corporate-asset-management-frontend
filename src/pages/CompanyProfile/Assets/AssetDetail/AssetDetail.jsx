@@ -6,6 +6,7 @@ import { assetUrl } from "@/Utilies/Url";
 import { useEffect, useState } from "react";
 import {useParams} from "react-router-dom"
 import Loader from "@/components/Loader/Loader";
+import AssetDistributionHistory from "./AssetDistributionHistory";
 
 const AssetDetail = () => {
     const {assetId} = useParams();
@@ -47,7 +48,6 @@ const AssetDetail = () => {
         }
     }
     
-
     useEffect(()=>{
         fetch(assetUrl+`${assetId}`,{
             method:'GET',
@@ -94,6 +94,7 @@ const AssetDetail = () => {
                     <h1 className="text-xl font-bold text-[#6558F5] mt-5">{dayCounter(asset.warranty,WARRENTY)}</h1>
                 </div>
             </div>
+            <AssetDistributionHistory assetId={asset.id} />
         </div>
     );
 };
