@@ -21,17 +21,21 @@ import { useEffect, useState } from "react";
 import AssetTableRow from "./AssetTableRow";
 
 const AssetTable = () => {
-    const [sort,setSort] = useState('');
+    const [sort,setSort] = useState('id');
     const [search,setSearch] = useState('');
     const [assets,setAssets] = useState([]);
     const accessToken = localStorage.getItem("accessToken");
     
     const handleSearch = () =>{
         console.log(search,sort);
+        if(search){
+            const result = assets.filter(asset => asset.name.toLowerCase().includes(search.toLocaleLowerCase()));
+            setAssets(result);
+        }
     };
 
     useEffect(()=>{
-        fetch(assetUrl,{
+        fetch(assetUrl +`?sort=${sort}`,{
             method:'GET',
             headers: {
                 'Authorization': `JWT ${accessToken}`,
@@ -41,7 +45,7 @@ const AssetTable = () => {
         .then(res => res.json())
         .then(data =>setAssets(data))
         
-    },[])
+    },[search,sort])
 
     return (
         <div className="mt-16">
@@ -57,8 +61,10 @@ const AssetTable = () => {
                             <SelectValue placeholder="Sort By" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="free">Free</SelectItem>
-                            <SelectItem value="distributed">Distributed</SelectItem>
+                            <SelectItem value="name">Name</SelectItem>
+                            <SelectItem value="price">Price</SelectItem>
+                            <SelectItem value="buy_date">Buying Date</SelectItem>
+                            <SelectItem value="warranty">Warrenty Date</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
