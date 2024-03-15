@@ -76,10 +76,10 @@ const AssetTable = () => {
                             <TableHead className="text-[#6558F5] font-semibold text-sm w-[100px]">ID</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Name</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Category</TableHead>
-                            <TableHead className="text-[#6558F5] font-semibold text-sm ">Price</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Buy Date</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Warrenty Date</TableHead>
-                            <TableHead className="text-[#6558F5] font-semibold text-sm ">View Detail</TableHead>
+                            <TableHead className="text-[#6558F5] font-semibold text-sm text-right ">Price</TableHead>
+                            <TableHead className="text-[#6558F5] font-semibold text-sm text-center ">View Detail</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

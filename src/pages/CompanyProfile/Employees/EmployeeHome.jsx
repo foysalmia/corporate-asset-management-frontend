@@ -2,6 +2,13 @@ import { employeeUrl } from "@/Utilies/Url";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import {
     Table,
     TableBody,
     TableCaption,
@@ -13,6 +20,7 @@ import { useEffect, useState } from "react";
 import EmployeeRow from "./EmployeeRow";
 
 const EmployeeHome = () => {
+    const [sort,setSort] = useState('id');
     const [search,setSearch] = useState('');
     const [employees,setEmployees] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
@@ -24,7 +32,7 @@ const EmployeeHome = () => {
     }
 
     useEffect(()=>{
-        fetch(employeeUrl, {
+        fetch(employeeUrl + `?sort=${sort}`, {
             method: 'GET',
             headers: {
                 'Authorization': `JWT ${accessToken}`,
@@ -34,13 +42,24 @@ const EmployeeHome = () => {
             .then(res => res.json())
             .then(data => setEmployees(data))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[search]);
+    },[search,sort]);
 
     return (
         <div className="mt-16">
             <div className="flex w-full max-w-lg items-center space-x-2 mx-auto">
                 <Input onChange={(e)=>setSearch(e.target.value)} type="email" placeholder="Search employee here" />
                 <Button onClick={handleSearch} className="bg-[#6558F5] hover:bg-[#3a338f]">Search</Button>
+                <Select onValueChange={(e) => setSort(e)}>
+                    <SelectTrigger className="w-[180px] bg-[#6558F5] text-white">
+                        <SelectValue placeholder="Sort By" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="salary">Salary</SelectItem>
+                        <SelectItem value="name">Name</SelectItem>
+                        <SelectItem value="designation">Designation</SelectItem>
+                        <SelectItem value="join_date">Join Date</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             <div className="mt-5">
                 <Table className="border border-gray-100">
@@ -52,6 +71,7 @@ const EmployeeHome = () => {
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Designation</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Join Date</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm text-right">Salary</TableHead>
+                            <TableHead className="text-[#6558F5] font-semibold text-sm text-center">View Details</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
