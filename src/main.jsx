@@ -23,6 +23,7 @@ import DistributeHome from './pages/CompanyProfile/Distribute/DistributeHome';
 import ContextApi from './components/Context/ContextApi';
 import Protected from './components/ProtectedRoute/Protected';
 import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail/AssetDetail';
+import EmployeeDetail from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeDetail';
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
           {
             path: "add-employee",
             element: <Protected><AddEmployee /></Protected>
+          },
+          {
+            path: ":employeeId",
+            element: <Protected><EmployeeDetail /></Protected>
           },
         ]
       },

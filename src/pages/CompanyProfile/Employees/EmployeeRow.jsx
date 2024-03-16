@@ -14,7 +14,7 @@ const EmployeeRow = ({employee}) => {
             <TableCell>{employee.join_date}</TableCell>
             <TableCell className="text-right">$ {employee.salary}</TableCell>
             <TableCell className="text-center flex justify-center">
-                <Link className="flex justify-center items-center bg-slate-100 p-2 w-1/3 rounded-md"><BiSolidUserDetail size={25} color="#6558F5"/></Link>
+                <Link to={`/profile/employees/${employee.id}`} className="flex justify-center items-center bg-slate-100 p-2 w-1/3 rounded-md"><BiSolidUserDetail size={25} color="#6558F5"/></Link>
             </TableCell>
         </TableRow>
     );

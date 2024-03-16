@@ -48,7 +48,7 @@ const AssetDetail = () => {
     }
     
     useEffect(()=>{
-        fetch(assetUrl+`${assetId}`,{
+        fetch(assetUrl + `${assetId}`,{
             method:'GET',
             headers:{
                 "Authorization":`JWT ${accessToken}`,
