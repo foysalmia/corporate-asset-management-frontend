@@ -2,8 +2,10 @@
 import { employeeUrl } from "@/Utilies/Url";
 import Loader from "@/components/Loader/Loader";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams,Link } from "react-router-dom"
 import UsedAssetHist from "./UsedAssetHist";
+import { FaRegEdit } from "react-icons/fa";
+import EmployeeDelete from "./EmployeeDelete";
 
 const EmployeeDetail = () => {
     const { employeeId } = useParams();
@@ -32,9 +34,15 @@ const EmployeeDetail = () => {
                     <h1 className="font-bold text-4xl">{employee.name}</h1>
                     <h1 className="text-xm mt-3">{employee.designation}</h1>
                     <h1 className="text-xm mt-2 font-semibold">Joining Date: {employee.join_date}</h1>
-
                 </div>
-                <h1 className="font-bold text-4xl">${employee.salary}</h1>
+                <div>
+                    <h1 className="font-bold text-4xl">${employee.salary}</h1>
+                    <div className="flex justify-center items-center">
+                        <EmployeeDelete employeeId={employeeId} />
+                        <Link className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md">
+                            <FaRegEdit />Edit</Link>
+                    </div>
+                </div>
             </div>
             <hr className="my-3" />
             <p>{employee.description}</p>
