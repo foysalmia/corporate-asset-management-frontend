@@ -25,6 +25,7 @@ import Protected from './components/ProtectedRoute/Protected';
 import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail/AssetDetail';
 import EmployeeDetail from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeDetail';
 import AssetEdit from './pages/CompanyProfile/Assets/AssetDetail/AssetEdit';
+import EmployeeEdit from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeEdit';
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
           {
             path: ":employeeId",
             element: <Protected><EmployeeDetail /></Protected>
+          },
+          {
+            path: "edit/:employeeId",
+            element: <Protected><EmployeeEdit /></Protected>
           },
         ]
       },

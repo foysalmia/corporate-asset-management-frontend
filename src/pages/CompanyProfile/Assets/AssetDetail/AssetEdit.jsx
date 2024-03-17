@@ -38,7 +38,7 @@ const AssetEdit = () => {
             body: JSON.stringify(formData)
         }).then(res =>{
             if(res.status==200){
-                Swal.fire("Asset Updated Successfully","","success");
+                Swal.fire("Asset Detail Updated Successfully","","success");
                 navigate(`/profile/assets/${assetId}`);
             }
         }).catch(error =>{
@@ -81,7 +81,6 @@ const AssetEdit = () => {
                         value={formData.price}
                         onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                         placeholder="Enter asset Price here"
-                        className="ml-2"
                     />
                 </div>
                 

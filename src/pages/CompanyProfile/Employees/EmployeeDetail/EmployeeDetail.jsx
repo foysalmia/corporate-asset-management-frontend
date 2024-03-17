@@ -39,7 +39,7 @@ const EmployeeDetail = () => {
                     <h1 className="font-bold text-4xl">${employee.salary}</h1>
                     <div className="flex justify-center items-center">
                         <EmployeeDelete employeeId={employeeId} />
-                        <Link className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md">
+                        <Link to={`/profile/employees/edit/${employeeId}`} state={{employee:employee}} className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md">
                             <FaRegEdit />Edit</Link>
                     </div>
                 </div>
