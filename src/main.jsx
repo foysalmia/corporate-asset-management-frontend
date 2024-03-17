@@ -24,6 +24,7 @@ import ContextApi from './components/Context/ContextApi';
 import Protected from './components/ProtectedRoute/Protected';
 import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail/AssetDetail';
 import EmployeeDetail from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeDetail';
+import AssetEdit from './pages/CompanyProfile/Assets/AssetDetail/AssetEdit';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path:":assetId",
             element: <Protected><AssetDetail/></Protected>
+          },
+          {
+            path:"edit/:assetId",
+            element: <Protected><AssetEdit/></Protected>
           },
         ]
       },

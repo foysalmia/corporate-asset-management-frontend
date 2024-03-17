@@ -72,7 +72,7 @@ const AssetDetail = () => {
                 <h1 className="my-2 font-semibold text-xl text-gray-600">Category: {asset.category?.name}</h1>
                 <div className="flex justify-center items-center">
                     <AssetDelete assetId={asset.id} />
-                    <Link className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md">
+                    <Link to={`/profile/assets/edit/${assetId}`} state={{asset:asset}} className="ml-3 flex justify-around items-center px-3 py-2 bg-green-600 text-white rounded-md">
                         <FaRegEdit />Edit</Link>
                 </div>
            </div>
