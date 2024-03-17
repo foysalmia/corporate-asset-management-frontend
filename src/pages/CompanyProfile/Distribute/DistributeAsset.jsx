@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Label } from "@/components/ui/label";
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,9 +10,21 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import DatePicker from "@/components/DatePicker/DatePicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { formateDate } from "@/Utilies/DateFormat";
+import { assetUrl, distributeUrl, employeeUrl } from "@/Utilies/Url";
+import Loader from "@/components/Loader/Loader";
+import { getAuth } from "@/components/Context/GetContext";
+import Swal from 'sweetalert2';
+import {useNavigate} from 'react-router-dom';
 
 const DistributeAsset = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const navigate = useNavigate();
+    const {user} = getAuth();
+    const [assets,setAssets] = useState([]);
+    const [employees,setEmployees] = useState([]);
+
     const [asset,setAsset] = useState("");
     const [employee,setEmployee] = useState("");
     const [provideCondition,setProvideCondition] = useState("");
@@ -21,10 +34,54 @@ const DistributeAsset = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(asset,employee);
-        console.log(provideCondition,returnCondition);
-        console.log(provideDate);
-        console.log(returnDate);
+        const distributeData = {
+            asset,employee,
+            provide_conditions : provideCondition,
+            return_conditions : returnCondition,
+            provide_date : formateDate(provideDate),
+            return_date : formateDate(returnDate),
+            company : user.id,
+            return : false
+            
+        }
+        console.log(distributeData);
+        fetch(distributeUrl,{
+            method : 'POST',
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body : JSON.stringify(distributeData)
+        }).then(res =>{
+            if(res.status==201){
+                Swal.fire("Asset Successfully Distributed","","success");
+                navigate("/profile/distribute/");
+            }
+        })
+    }
+
+    useEffect(()=>{
+        fetch(assetUrl,{
+            method:'GET',
+            headers:{
+                'Authorization' : `JWT ${accessToken}`,
+                'Content-Type' : 'application/json',
+            }
+        }).then(res => res.json())
+        .then(data => setAssets(data));
+
+        fetch(employeeUrl, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json',
+            }
+        }).then(res => res.json())
+            .then(data => setEmployees(data));
+    },[]);
+
+    if(!assets.length && !employees.length){
+        return <Loader/>;
     }
 
     return (
@@ -38,9 +95,9 @@ const DistributeAsset = () => {
                             <SelectValue placeholder="Select Asset" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="dark">Dark</SelectItem>
-                            <SelectItem value="system">System</SelectItem>
+                            {
+                                assets.map(data => <SelectItem value={`${data.id}`} key={data.id}>{data.name}</SelectItem> )
+                            }
                         </SelectContent>
                     </Select>
                 </div>
@@ -50,9 +107,9 @@ const DistributeAsset = () => {
                             <SelectValue placeholder="Select Employee" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="dark">Dark</SelectItem>
-                            <SelectItem value="system">System</SelectItem>
+                            {
+                                employees.map(data => <SelectItem value={`${data.id}`} key={data.id}>{data.name}</SelectItem>)
+                            }
                         </SelectContent>
                     </Select>
                 </div>
