@@ -11,6 +11,13 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import DistributeRow from "./DistributeRow";
 
@@ -18,13 +25,17 @@ const DistributeHome = () => {
     const accessToken = localStorage.getItem("accessToken");
     const [search, setSearch] = useState('');
     const [distributes,setDistributes] = useState([]);
+    const [sort, setSort] = useState('id');
 
     const handleSearch = () => {
-        console.log(search);
+        if (search) {
+            const sorted = distributes.filter(data => data.asset.name.toLowerCase().includes(search.toLocaleLowerCase()));
+            setDistributes(sorted);
+        }
     }
 
     useEffect(()=>{
-        fetch(distributeUrl,{
+        fetch(distributeUrl + `?sort=${sort}`, {
             method : "GET",
             headers : {
                 'Authorization': `JWT ${accessToken}`,
@@ -32,7 +43,7 @@ const DistributeHome = () => {
             }
         }).then(res => res.json())
         .then(data => setDistributes(data))
-    },[])
+    },[search,sort])
 
     if(!distributes.length){
         return <Loader/>;
@@ -43,6 +54,18 @@ const DistributeHome = () => {
             <div className="flex w-full max-w-lg items-center space-x-2 mx-auto">
                 <Input onChange={(e) => setSearch(e.target.value)} type="email" placeholder="Search Distributed Assets here" />
                 <Button onClick={handleSearch} className="bg-[#6558F5] hover:bg-[#3a338f]">Search</Button>
+
+                <Select onValueChange={(e) => setSort(e)}>
+                    <SelectTrigger className="w-[180px] bg-[#6558F5] text-white">
+                        <SelectValue placeholder="Sort By" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="returned">Status</SelectItem>
+                        <SelectItem value="provide_date">Provide Date</SelectItem>
+                        <SelectItem value="return_date">Return Date</SelectItem>
+                        <SelectItem value="employee">Employee</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             <div className="mt-5">
                 <Table className="border border-gray-100">
