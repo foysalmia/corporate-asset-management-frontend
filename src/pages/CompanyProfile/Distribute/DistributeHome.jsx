@@ -20,12 +20,16 @@ import {
 } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import DistributeRow from "./DistributeRow";
+import { getAuth } from "@/components/Context/GetContext";
+import {useNavigate} from 'react-router-dom';
 
 const DistributeHome = () => {
     const accessToken = localStorage.getItem("accessToken");
     const [search, setSearch] = useState('');
     const [distributes,setDistributes] = useState([]);
     const [sort, setSort] = useState('id');
+    const {setUser} = getAuth();
+    const navigate = useNavigate();
 
     const handleSearch = () => {
         if (search) {
@@ -41,7 +45,13 @@ const DistributeHome = () => {
                 'Authorization': `JWT ${accessToken}`,
                 'Content-Type' : 'application/json'
             }
-        }).then(res => res.json())
+        }).then(res => {
+            if (res.status == 401) {
+                setUser({});
+                navigate('/login');
+            }
+            return res.json();
+        })
         .then(data => setDistributes(data))
     },[search,sort])
 

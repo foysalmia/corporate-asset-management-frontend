@@ -3,15 +3,16 @@ import { MdDevices } from "react-icons/md";
 import { GoPeople } from "react-icons/go";
 import { RiAdminLine } from "react-icons/ri";
 import { PiSignOutBold } from "react-icons/pi";
-import {  NavLink, Outlet } from "react-router-dom";
+import {  Link, NavLink, Outlet } from "react-router-dom";
 import { CgPushChevronRightR } from "react-icons/cg";
+import { adminUrl } from "@/Utilies/Url";
 
 const CompanyProfile = () => {
     return (
         <div className='grid grid-cols-5 gap-2'>
             <div>
                 <div className='bg-[#6558F5] fixed h-screen py-5 px-10'>
-                    <h1 className='text-white font-bold text-3xl'>Asset Pulse</h1>
+                    <Link to="/"><h1 className='text-white font-bold text-3xl'>Asset Pulse</h1></Link>
                     <div className='mt-5'>
                         <NavLink
                             to='/profile/dashboard'
@@ -57,10 +58,16 @@ const CompanyProfile = () => {
                         </NavLink>
                     </div>
                     <div className='mt-2'>
-                        <a className='text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center' ><RiAdminLine size={25} className='mr-2' />Admin</a>
+                        <a href={adminUrl} target="_blank" className='text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center' ><RiAdminLine size={25} className='mr-2' />Admin</a>
                     </div>
                     <div className='mt-2'>
-                        <a className='text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center' ><PiSignOutBold size={25} className='mr-2' />Sign Out</a>
+                        <NavLink
+                            to='/profile/signout'
+                            className={
+                                ({ isActive }) => isActive ?
+                                    "bg-[#372DA6] text-white font-semibold text-xl px-3 py-2 rounded-md flex items-center" :
+                                    "text-white font-semibold text-xl px-3 py-2 hover:bg-[#372DA6] rounded-md flex items-center"}
+                         ><PiSignOutBold size={25} className='mr-2' />Sign Out</NavLink>
                     </div>
 
                 </div>

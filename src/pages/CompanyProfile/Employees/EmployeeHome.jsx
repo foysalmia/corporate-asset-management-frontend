@@ -18,12 +18,18 @@ import {
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
 import EmployeeRow from "./EmployeeRow";
+import Loader from "@/components/Loader/Loader";
+import { getAuth } from "@/components/Context/GetContext";
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeHome = () => {
     const [sort,setSort] = useState('id');
     const [search,setSearch] = useState('');
     const [employees,setEmployees] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
+    const { setUser } = getAuth();
+    const navigate = useNavigate();
+    
     const handleSearch = () =>{
         if(search){
             const sorted = employees.filter(employee => employee.name.toLowerCase().includes(search.toLocaleLowerCase()));
@@ -39,10 +45,20 @@ const EmployeeHome = () => {
                 'Content-Type': 'application/json',
             }
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status == 401) {
+                    setUser({});
+                    navigate('/login');
+                }
+                return res.json();
+            })
             .then(data => setEmployees(data))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[search,sort]);
+
+    if(!employees.length){
+        return <Loader/>;
+    }
 
     return (
         <div className="mt-16">

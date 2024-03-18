@@ -26,6 +26,7 @@ import AssetDetail from './pages/CompanyProfile/Assets/AssetDetail/AssetDetail';
 import EmployeeDetail from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeDetail';
 import AssetEdit from './pages/CompanyProfile/Assets/AssetDetail/AssetEdit';
 import EmployeeEdit from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeEdit';
+import SignOut from './pages/CompanyProfile/SignOut/SignOut';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path:"dashboard",
         element: <Protected><Dashboard /></Protected>,
+      },
+      {
+        path:"signout",
+        element: <Protected><SignOut /></Protected>,
       },
       {
         path:"assets",

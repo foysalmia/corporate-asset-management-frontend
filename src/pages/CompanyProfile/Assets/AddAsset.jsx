@@ -45,6 +45,7 @@ const AddAsset = () => {
                 navigate("/profile/assets");
             }else{
                 Swal.fire("Did not added !!","","error");
+                navigate('/login');
             }
         })
     }
