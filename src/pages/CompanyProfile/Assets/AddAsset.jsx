@@ -14,6 +14,8 @@ import { getAuth } from '@/components/Context/GetContext';
 import { assetUrl } from '@/Utilies/Url';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import DatePicker from '@/components/DatePicker/DatePicker';
+import { formateDate } from '@/Utilies/DateFormat';
 
 const AddAsset = () => {
     const [name,setName] = useState('');
@@ -29,7 +31,7 @@ const AddAsset = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        const formData = { name, description, price, buy_date: buyDate, warranty:warrentyDate,category,company:user.id};
+        const formData = { name, description, price, buy_date: formateDate(buyDate), warranty: formateDate(warrentyDate),category,company:user.id};
         fetch(assetUrl,{
             method:'POST',
             headers: {
@@ -93,21 +95,9 @@ const AddAsset = () => {
                         className="ml-2"
                     />
                 </div>
-                <div className="mt-2 flex justify-between items-center">
-                    <input
-                        placeholder="Enter Buy Date"
-                        onChange={(e) => setBuyDate(e.target.value)}
-                        className="p-2 w-1/2 border border-1 rounded-md"
-                        onFocus={(e) => (e.target.type = "date")}
-                        onBlur={(e) => (e.target.type = "text")}
-                    />
-                    <input
-                        placeholder="Enter Warrenty Date"
-                        onChange={(e) => setWarrentyDate(e.target.value)}
-                        className="p-2 w-1/2 border border-1 rounded-md ml-3"
-                        onFocus={(e) => (e.target.type = "date")}
-                        onBlur={(e) => (e.target.type = "text")}
-                    />
+                <div className="mt-2 flex justify-between items-center">   
+                    <DatePicker text="Buying Date" date={buyDate} setDate={setBuyDate} />
+                    <DatePicker text="Warrenty Date" date={warrentyDate} setDate={setWarrentyDate} />   
                 </div>
                 <Button className="mt-2 w-full bg-[#6558F5] hover:bg-[#372DA6] text-white" type="submit">Add Asset</Button>
             </form>

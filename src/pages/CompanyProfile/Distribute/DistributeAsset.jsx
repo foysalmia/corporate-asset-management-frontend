@@ -44,7 +44,6 @@ const DistributeAsset = () => {
             return : false
             
         }
-        console.log(distributeData);
         fetch(distributeUrl,{
             method : 'POST',
             headers: {

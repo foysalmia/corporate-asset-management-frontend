@@ -7,6 +7,8 @@ import { getAuth } from "@/components/Context/GetContext";
 import { employeeUrl } from "@/Utilies/Url";
 import Swal from 'sweetalert2'
 import {useNavigate} from 'react-router-dom';
+import DatePicker from "@/components/DatePicker/DatePicker";
+import { formateDate } from "@/Utilies/DateFormat";
 
 const AddEmployee = () => {
     const [name,setName] = useState('');
@@ -19,7 +21,7 @@ const AddEmployee = () => {
     const navigate = useNavigate();
     const handleEmployeeAdd = (e) =>{
         e.preventDefault();
-        const formData = {name,designation,description,salary,join_date,company:user.id};
+        const formData = {name,designation,description,salary,join_date:formateDate(join_date),company:user.id};
         fetch(employeeUrl,{
             method:'POST',
             headers: {
@@ -73,13 +75,7 @@ const AddEmployee = () => {
                     />
                 </div>
                 <div className="mt-2 flex justify-between items-center">
-                    <input 
-                        placeholder="Employee Joining Date" 
-                        onChange={(e)=>setJoinDate(e.target.value)} 
-                        className="p-1 w-2/3 border border-1 rounded-md" 
-                        onFocus={(e) => (e.target.type = "date")} 
-                        onBlur={(e) => (e.target.type = "text")}
-                        />
+                    <DatePicker text="Joining Date" date={join_date} setDate={setJoinDate} />
                     <Input
                         type="number"
                         min={0}
