@@ -4,7 +4,7 @@ import {createContext, useEffect, useState} from 'react';
 export const AuthContext = createContext(null);
 
 const ContextApi = ({children}) => {
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState({});
     const [loading,setLoading] = useState(true);
     const accessToken = localStorage.getItem("accessToken");
 

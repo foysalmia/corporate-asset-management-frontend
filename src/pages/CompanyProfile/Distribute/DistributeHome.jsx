@@ -90,7 +90,7 @@ const DistributeHome = () => {
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Provide Date</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Return Date</TableHead>
                             <TableHead className="text-[#6558F5] font-semibold text-sm ">Status</TableHead>
-                            <TableHead className="text-[#6558F5] font-semibold text-sm ">Return</TableHead>
+                            <TableHead className="text-[#6558F5] font-semibold text-sm ">Details</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

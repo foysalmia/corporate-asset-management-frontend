@@ -27,6 +27,7 @@ import EmployeeDetail from './pages/CompanyProfile/Employees/EmployeeDetail/Empl
 import AssetEdit from './pages/CompanyProfile/Assets/AssetDetail/AssetEdit';
 import EmployeeEdit from './pages/CompanyProfile/Employees/EmployeeDetail/EmployeeEdit';
 import SignOut from './pages/CompanyProfile/SignOut/SignOut';
+import DistributeDetail from './pages/CompanyProfile/Distribute/DistributeDetail/DistributeDetail';
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
           {
             path: "distribute-asset",
             element: <Protected><DistributeAsset /></Protected>
+          },
+          {
+            path: ":distributeId",
+            element: <Protected><DistributeDetail /></Protected>
           },
         ]
       },

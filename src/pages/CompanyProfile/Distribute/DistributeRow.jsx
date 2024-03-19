@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from '@/components/ui/table';
+import { Link } from 'react-router-dom';
 
 const DistributeRow = ({data}) => {
     return (
@@ -12,7 +13,9 @@ const DistributeRow = ({data}) => {
                     : data.status == "Using" ? <TableCell className="text-[#6558F5] font-semibold">Using</TableCell>
                         : <TableCell className="text-orange-400 font-semibold">Due to return</TableCell>
             }
-            <TableCell className="text-green-400">Check Details</TableCell>
+            <TableCell className="text-green-400 text-xs">
+                <Link to={`/profile/distribute/${data.id}`}>Check Details</Link>
+            </TableCell>
         </TableRow>
     );
 };

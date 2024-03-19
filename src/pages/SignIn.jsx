@@ -12,9 +12,9 @@ import Swal from 'sweetalert2'
 const SignIn = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const { user,setUser,loading,setLoading } = getAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const {setUser,setLoading} =  getAuth();
 
     const from = location.state?.from?.pathname || '/' ;
 
@@ -27,7 +27,16 @@ const SignIn = () => {
             },
             body: JSON.stringify(loginData),
         })
-        .then(res => res.json())
+        .then(res =>{
+            if(res.status == 401){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please Login with correct credentials',
+                    icon: 'error',
+                });
+            }
+            return res.json();
+        })
         .then(data => {
             localStorage.setItem('accessToken',data.access);
             fetch(userUrl, {
@@ -37,20 +46,13 @@ const SignIn = () => {
                     'Content-Type': 'application/json',
                 },
             })
-            .then(res => res.json())
-            .then(data => {
-                setUser(data);
-                setLoading(false);
-
-                if (!loading){
-                    user.email ? navigate(from)
-                        : Swal.fire({
-                            title: 'Error!',
-                            text: 'Please Login with correct credentials',
-                            icon: 'error',
-                        });
-                }
-            })
+                .then(res => res.json())
+                .then(data => {
+                    setUser(data);
+                    setLoading(false);
+                    navigate(from);
+                })
+            
         })
 
     }

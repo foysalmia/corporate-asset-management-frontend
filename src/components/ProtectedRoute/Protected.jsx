@@ -7,7 +7,6 @@ const Protected = ({children}) => {
     const {user,loading} = useContext(AuthContext);
     const location = useLocation();
 
-    
     if(loading){
         return <Loader/>
     } else if (user?.email){
