@@ -44,6 +44,7 @@ const AddAsset = () => {
                 Swal.fire(`${name} is added successfully in your organization.`,"","success");
                 navigate("/profile/assets");
             }else{
+                console.log(res.json());
                 Swal.fire("Did not added !!","","error");
                 navigate('/login');
             }

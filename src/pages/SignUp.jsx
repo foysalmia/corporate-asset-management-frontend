@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Link,useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { signUpUrl } from '@/Utilies/Url';
 
 
 const SignUp = () => {
@@ -31,7 +32,7 @@ const SignUp = () => {
 
     const handleSignUp = () =>{
         const formData = {name,email,description,password};
-        fetch("http://127.0.0.1:8000/auth/users/",{
+        fetch(signUpUrl,{
             method : 'POST',
             headers : {
                 'Content-Type' :  'application/json',
