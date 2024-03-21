@@ -32,26 +32,32 @@ const SignUp = () => {
 
     const handleSignUp = () =>{
         const formData = {name,email,description,password};
-        fetch(signUpUrl,{
-            method : 'POST',
-            headers : {
-                'Content-Type' :  'application/json',
-            },
-            body : JSON.stringify(formData),
-        })
-        .then(res => {
-            if (res.status === 400){
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Email Already Exists..!\nPlease Login.',
-                    icon: 'error',
+        if(password.length < 8){
+            Swal.fire("Password must be greater or equal to 8 characters.","","warning");
+        }else{
+            fetch(signUpUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(res => {
+                    if (res.status === 400) {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Email Already Exists..! Please Login.',
+                            icon: 'error',
+                        })
+                    } else {
+                        res.status == 201 && Swal.fire("Successfully Created !", "", "success");
+                        return res.json();
+                    }
                 })
-            }else{
-                return res.json()
-            }
-        })
-        .then(data => navigate('/login'))
-        .catch(error => console.log(error,'error found'))
+                .then(data => navigate('/login'))
+                .catch(error => Swal.fire("Company does not created!", "", "error"))
+        }
+        
     }
     return (
         <div className="grid grid-cols-2 gap-2">

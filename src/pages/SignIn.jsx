@@ -46,7 +46,10 @@ const SignIn = () => {
                     'Content-Type': 'application/json',
                 },
             })
-                .then(res => res.json())
+                .then(res => {
+                    res.status==200 && Swal.fire("Successfully Logged in !","","success");
+                    return res.json();
+                })
                 .then(data => {
                     setUser(data);
                     setLoading(false);
